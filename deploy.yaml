@@ -1,0 +1,31 @@
+---
+version: "2.0"
+services:
+  gitfolio:
+    image: nemesischill/gitfolio:0.1
+    expose:
+      - port: 80
+        as: 80
+        to:
+          - global: true
+profiles:
+  compute:
+    gitfolio:
+      resources:
+        cpu:
+          units: 1
+        memory:
+          size: 1Gi
+        storage:
+          - size: 1Gi
+  placement:
+    dcloud:
+      pricing:
+        gitfolio:
+          denom: uakt
+          amount: 1000
+deployment:
+  gitfolio:
+    dcloud:
+      profile: gitfolio
+      count: 1
